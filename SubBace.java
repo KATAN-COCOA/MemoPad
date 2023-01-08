@@ -11,11 +11,11 @@ import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.event.*;
 
-public class Bace extends JFrame implements ActionListener{
+public class SubBace extends JFrame implements ActionListener{
 
     //パネル
     private JPanel mainP;
-    
+
     //メニューボタン
     private JMenuItem itemOfNew;
     private JMenuItem itemOfNewWindow;
@@ -23,39 +23,38 @@ public class Bace extends JFrame implements ActionListener{
     private JMenuItem itemOfStore;
     private JMenuItem itemOfStoreWithName;
     private JMenuItem itemOfExit;
-    
+
     //テキストエリア
     public static JTextArea textArea; //書き込む部分
-    
+
     //設定項目
     public static int fontSize;
 
     /*
-    * コンストラクタ
+     * コンストラクタ
      */
-    public Bace()
+    public SubBace()
     {
         //フレーム全体の設定
         setSize(1000, 500);
         setLocationRelativeTo(null);
         setTitle("メモ帳");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
         //メインパネルの設定
         mainP = new JPanel();
         mainP.setLayout(new BorderLayout());
-        
+
         //フレームの中身の設定
         setLayout(new BorderLayout());
         add(mainPanel());
-        
+
         //フレームを有効化
         setVisible(true);
     }
-    
+
     /*
-    * メインのパネルを表示
-    */
+     * メインのパネルを表示
+     */
     public JPanel mainPanel()
     {
         //メニューバー
@@ -94,11 +93,11 @@ public class Bace extends JFrame implements ActionListener{
         setJMenuBar(menuBar);
 
         fontSize = 30; //フォントサイズを設定
-        
+
         textArea = new JTextArea();
         textArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize));
         JScrollPane scrollpane = new JScrollPane(textArea);
-        
+
         mainP.add(scrollpane, BorderLayout.CENTER);
 
         return mainP;
@@ -110,7 +109,7 @@ public class Bace extends JFrame implements ActionListener{
         String text = textArea.getText();
         return text;
     }
-    
+
     //ボタンが押された際の動作
     @Override
     public void actionPerformed(ActionEvent event)
