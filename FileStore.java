@@ -35,7 +35,7 @@ public class FileStore implements ActionListener{
     */
     public FileStore()
     {
-        mainFrame = new JFrame("保存");
+        mainFrame = new JFrame("名前を付けて保存");
         mainFrame.setSize(700, 200);
         mainFrame.setLocationRelativeTo(null);
         fileStore();

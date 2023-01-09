@@ -124,7 +124,7 @@ public class Bace extends JFrame implements ActionListener{
         }else if(event.getSource() == itemOfSetting){
             new Setting();
         }else if(event.getSource() == itemOfStore){
-            new FileStore();
+
         }else if(event.getSource() == itemOfStoreWithName){
             new FileStore();
         }else if(event.getSource() == itemOfExit){
