@@ -1,3 +1,7 @@
+/*
+* 初期画面用クラス
+ */
+
 package org.example.MemoPad;
 
 import javax.swing.JFrame;
@@ -23,12 +27,14 @@ public class Bace extends JFrame implements ActionListener{
     private JMenuItem itemOfStore;
     private JMenuItem itemOfStoreWithName;
     private JMenuItem itemOfExit;
+
+    //設定項目
+    private String fontName;
+    private int fontStyle;
+    private int fontSize;
     
     //テキストエリア
     public static JTextArea textArea; //書き込む部分
-    
-    //設定項目
-    public static int fontSize;
 
     /*
     * コンストラクタ
@@ -44,6 +50,11 @@ public class Bace extends JFrame implements ActionListener{
         //メインパネルの設定
         mainP = new JPanel();
         mainP.setLayout(new BorderLayout());
+
+        //初期設定
+        fontName = "Monospaced";
+        fontStyle = Font.PLAIN;
+        fontSize = 12; //フォントサイズを設定
         
         //フレームの中身の設定
         setLayout(new BorderLayout());
@@ -93,10 +104,10 @@ public class Bace extends JFrame implements ActionListener{
 
         setJMenuBar(menuBar);
 
-        fontSize = 30; //フォントサイズを設定
+
         
         textArea = new JTextArea();
-        textArea.setFont(new Font("Monospaced", Font.PLAIN, fontSize));
+        textArea.setFont(new Font(fontName, fontStyle, fontSize));
         JScrollPane scrollpane = new JScrollPane(textArea);
         
         mainP.add(scrollpane, BorderLayout.CENTER);

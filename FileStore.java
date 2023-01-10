@@ -1,3 +1,7 @@
+/*
+* メモ内容をテキスト形式で保存するクラス
+ */
+
 package org.example.MemoPad;
 
 import javax.swing.*;

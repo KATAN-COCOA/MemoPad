@@ -1,3 +1,7 @@
+/*
+* 設定画面用クラス
+ */
+
 package org.example.MemoPad;
 
 import javax.swing.*;
@@ -7,14 +11,16 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 
 public class Setting extends JFrame implements ActionListener{
-    
-    //設定用
-    public static int fontSize;
 
     private JPanel mainP;
     private JPanel fontNameP;
     private JPanel fontStyleP;
     private JPanel fontSizeP; //メインパネル
+
+    //設定項目
+    public static String fontName; //フォントネーム
+    public static int fontStyle; //フォントスタイル
+    public static int fontSize; //フォントサイズ
 
 
     /*
@@ -23,26 +29,25 @@ public class Setting extends JFrame implements ActionListener{
     public Setting()
     {
         setLocationRelativeTo(null);
-        setSize(300, 400);
+        setSize(300, 480);
         setTitle("設定");
 
         mainP = new JPanel();
-        mainP.setLayout(new GridLayout(2, 1));
+        mainP.setLayout(new GridLayout(3, 1));
         mainP.add(fontNamePanel());
+        mainP.add(fontStylePanel());
         mainP.add(fontSizePanel());
 
         add(mainP);
         setVisible(true);
     }
 
-    //フォントネームを設定するパネル
+    //フォントファミリーを設定するパネル
     public JPanel fontNamePanel()
     {
         JLabel fontNameL = new JLabel("選択してください");
 
         DefaultListModel fontNameModel = new DefaultListModel();
-        StringBuffer fontNameSb;
-
         fontNameModel.addElement("DIALOG");
         fontNameModel.addElement("DIALOG_INPUT");
         fontNameModel.addElement("MONOSPACED");
@@ -74,10 +79,31 @@ public class Setting extends JFrame implements ActionListener{
     //フォントスタイルを設定するパネル
     public JPanel fontStylePanel()
     {
-        JLabel fontStyleL = new JLabel("フォントスタイル");
+        JLabel fontStyleL = new JLabel("選択してください");
+
+        DefaultListModel fontStyleModel = new DefaultListModel();
+        fontStyleModel.addElement("BOLD");
+        fontStyleModel.addElement("ITALIC");
+        fontStyleModel.addElement("PLAIN");
+
+        JList fontStyleList = new JList(fontStyleModel);
+
         fontStyleP = new JPanel();
+        fontStyleP.setBorder(BorderFactory.createTitledBorder("フォントスタイル"));
+        GroupLayout layout = new GroupLayout(fontStyleP);
+        fontStyleP.setLayout(layout);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
 
+        GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
 
+        hGroup.addGroup(layout.createParallelGroup().addComponent(fontStyleL));
+        hGroup.addGroup(layout.createParallelGroup().addComponent(fontStyleList));
+        layout.setHorizontalGroup(hGroup);
+
+        GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+        vGroup.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(fontStyleL).addComponent(fontStyleList));
+        layout.setVerticalGroup(vGroup);
 
         return fontStyleP;
     }
@@ -107,6 +133,24 @@ public class Setting extends JFrame implements ActionListener{
         layout.setVerticalGroup(vGroup);
 
         return fontSizeP;
+    }
+
+    //フォントネームを取得
+    public String getFontName()
+    {
+        return fontName;
+    }
+
+    //フォントスタイルを取得
+    public int getFontStyle()
+    {
+        return fontStyle;
+    }
+
+    //フォントサイズを取得
+    public int getFontSize()
+    {
+        return fontSize;
     }
 
     //ボタンが押された際の動作

@@ -1,3 +1,7 @@
+/*
+* 新規ウィンドウ用クラス
+ */
+
 package org.example.MemoPad;
 
 import javax.swing.JFrame;
