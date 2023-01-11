@@ -37,9 +37,9 @@ public class SubBace extends JFrame implements ActionListener{
     public static int fontStyle;
 
     /*
-     * コンストラクタ
+     * メイン画面を表示
      */
-    public SubBace()
+    public void mainFrame()
     {
         //フレーム全体の設定
         setSize(1000, 500);
@@ -98,10 +98,6 @@ public class SubBace extends JFrame implements ActionListener{
 
         setJMenuBar(menuBar);
 
-        fontName = "Monospaced";
-        fontStyle = Font.PLAIN;
-        fontSize = 30; //フォントサイズを設定
-
         textArea = new JTextArea();
         textArea.setFont(new Font(fontName, fontStyle, fontSize));
         JScrollPane scrollpane = new JScrollPane(textArea);
@@ -127,7 +123,8 @@ public class SubBace extends JFrame implements ActionListener{
             add(mainPanel());
             setVisible(true);
         }else if(event.getSource() == itemOfNewWindow){
-            new SubBace();
+            SubBace s = new SubBace();
+            s.mainFrame();
         }else if(event.getSource() == itemOfSetting){
             new Setting();
         }else if(event.getSource() == itemOfStore){

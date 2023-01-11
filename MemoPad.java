@@ -9,6 +9,7 @@ public class MemoPad {
     public static void main(String[] args)
     {
         //ソフト実行
-       new Bace();
+       Bace b = new Bace();
+       b.mainFrame();
     }
 }

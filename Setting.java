@@ -5,9 +5,7 @@
 package org.example.MemoPad;
 
 import javax.swing.*;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Setting extends JFrame implements ActionListener{
@@ -15,12 +13,17 @@ public class Setting extends JFrame implements ActionListener{
     private JPanel mainP;
     private JPanel fontNameP;
     private JPanel fontStyleP;
-    private JPanel fontSizeP; //メインパネル
+    private JPanel fontSizeP;
+    private JPanel buttonP;
 
-    //設定項目
-    public static String fontName; //フォントネーム
-    public static int fontStyle; //フォントスタイル
-    public static int fontSize; //フォントサイズ
+    private JButton decideB;
+
+    private JList fontNameList;
+    private JList fontStyleList;
+    private JSpinner spinner;
+    private SpinnerModel model;
+    private DefaultListModel fontNameModel;
+    private DefaultListModel fontStyleModel;
 
 
     /*
@@ -28,15 +31,17 @@ public class Setting extends JFrame implements ActionListener{
      */
     public Setting()
     {
-        setLocationRelativeTo(null);
-        setSize(300, 480);
+        setLocation(200, 100);
+        setSize(300, 600);
         setTitle("設定");
 
         mainP = new JPanel();
-        mainP.setLayout(new GridLayout(3, 1));
+        GridLayout layout = new GridLayout(4, 1);
+        mainP.setLayout(layout);
         mainP.add(fontNamePanel());
         mainP.add(fontStylePanel());
         mainP.add(fontSizePanel());
+        mainP.add(buttonPanel());
 
         add(mainP);
         setVisible(true);
@@ -47,14 +52,14 @@ public class Setting extends JFrame implements ActionListener{
     {
         JLabel fontNameL = new JLabel("選択してください");
 
-        DefaultListModel fontNameModel = new DefaultListModel();
+        fontNameModel = new DefaultListModel();
         fontNameModel.addElement("DIALOG");
         fontNameModel.addElement("DIALOG_INPUT");
         fontNameModel.addElement("MONOSPACED");
         fontNameModel.addElement("SANS_SERIF");
         fontNameModel.addElement("SERIF");
 
-        JList fontNameList = new JList(fontNameModel);
+        fontNameList = new JList(fontNameModel);
 
         fontNameP = new JPanel();
         fontNameP.setBorder(BorderFactory.createTitledBorder("フォントファミリー"));
@@ -81,12 +86,12 @@ public class Setting extends JFrame implements ActionListener{
     {
         JLabel fontStyleL = new JLabel("選択してください");
 
-        DefaultListModel fontStyleModel = new DefaultListModel();
+        fontStyleModel = new DefaultListModel();
         fontStyleModel.addElement("BOLD");
         fontStyleModel.addElement("ITALIC");
         fontStyleModel.addElement("PLAIN");
 
-        JList fontStyleList = new JList(fontStyleModel);
+        fontStyleList = new JList(fontStyleModel);
 
         fontStyleP = new JPanel();
         fontStyleP.setBorder(BorderFactory.createTitledBorder("フォントスタイル"));
@@ -112,7 +117,8 @@ public class Setting extends JFrame implements ActionListener{
     public JPanel fontSizePanel()
     {
         JLabel fontSizeLabel = new JLabel("整数値で入力してください");
-        JSpinner spinner = new JSpinner();
+        model = new SpinnerNumberModel(0, null, null, 1);
+        spinner = new JSpinner(model);
         spinner.setPreferredSize(new Dimension(30, 10));
 
         fontSizeP = new JPanel();
@@ -135,28 +141,50 @@ public class Setting extends JFrame implements ActionListener{
         return fontSizeP;
     }
 
-    //フォントネームを取得
-    public String getFontName()
+    //決定ボタンパネル
+    public JPanel buttonPanel()
     {
-        return fontName;
-    }
-
-    //フォントスタイルを取得
-    public int getFontStyle()
-    {
-        return fontStyle;
-    }
-
-    //フォントサイズを取得
-    public int getFontSize()
-    {
-        return fontSize;
+        buttonP = new JPanel();
+        buttonP.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        decideB = new JButton("反映");
+        decideB.addActionListener(this);
+        buttonP.add(decideB);
+        return buttonP;
     }
 
     //ボタンが押された際の動作
     @Override
     public void actionPerformed(ActionEvent event)
     {
-        
+        SubBace s = new SubBace();
+        //フォントネームを決定
+        int index = fontNameList.getSelectedIndex();
+        if (index == 0) {
+            s.fontName = fontNameModel.getElementAt(0).toString();
+        } else if (index == 1) {
+            s.fontName = fontNameModel.getElementAt(1).toString();
+        } else if (index == 2) {
+            s.fontName = fontNameModel.getElementAt(2).toString();
+        } else if (index == 3) {
+            s.fontName = fontNameModel.getElementAt(3).toString();
+        } else if (index == 4) {
+            s.fontName = fontNameModel.getElementAt(1).toString();
+        }
+
+        //フォントスタイルを決定
+        index = fontStyleList.getSelectedIndex();
+        if (index == 0) {
+            s.fontStyle = 1;
+        } else if (index == 1) {
+            s.fontStyle = 2;
+        } else if (index == 3) {
+            s.fontStyle = 0;
+        }
+
+        //フォントサイズを決定
+        Integer size = (Integer) model.getValue();
+        s.fontSize = size;
+
+        s.mainFrame();
     }
 }

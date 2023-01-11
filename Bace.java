@@ -29,17 +29,17 @@ public class Bace extends JFrame implements ActionListener{
     private JMenuItem itemOfExit;
 
     //設定項目
-    private String fontName;
-    private int fontStyle;
-    private int fontSize;
+    public static String fontName; //フォントネーム
+    public static int fontStyle; //フォントスタイル
+    public static int fontSize; //フォントサイズ
     
     //テキストエリア
     public static JTextArea textArea; //書き込む部分
 
     /*
-    * コンストラクタ
+    * メイン画面を表示
      */
-    public Bace()
+    public void mainFrame()
     {
         //フレーム全体の設定
         setSize(1000, 500);
@@ -131,8 +131,12 @@ public class Bace extends JFrame implements ActionListener{
             add(mainPanel());
             setVisible(true);
         }else if(event.getSource() == itemOfNewWindow){
-            new SubBace();
+            SubBace s = new SubBace();
+            s.mainFrame();
         }else if(event.getSource() == itemOfSetting){
+            this.removeAll();
+            setTitle("設定から新しいフレームを作成し、そこで作業を行ってください(プログラムを終了したい場合は右上のバツボタンを押すこと)");
+            setVisible(true);
             new Setting();
         }else if(event.getSource() == itemOfStore){
 
