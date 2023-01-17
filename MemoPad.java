@@ -8,7 +8,7 @@ public class MemoPad {
 
     public static void main(String[] args)
     {
-        //ソフト実行
+        //ソフトを起動(設定から)
        Bace b = new Bace();
        b.mainFrame();
     }

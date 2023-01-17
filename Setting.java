@@ -25,14 +25,19 @@ public class Setting extends JFrame implements ActionListener{
     private DefaultListModel fontNameModel;
     private DefaultListModel fontStyleModel;
 
+    public static String fontName = ""; //getValues用
+    public static int fontStyle = 0; //getValues用
+    public static int fontSize = 0; //getValues用
+
 
     /*
-    * コンストラクタ
-     */
-    public Setting()
+    * メイン画面表示
+    */
+    public void mainFrame()
     {
         setLocation(200, 100);
         setSize(300, 600);
+        setLocationRelativeTo(null);
         setTitle("設定");
 
         mainP = new JPanel();
@@ -152,39 +157,53 @@ public class Setting extends JFrame implements ActionListener{
         return buttonP;
     }
 
+    public String getFontName()
+    {
+        return fontName;
+    }
+
+    public int getFontStyle()
+    {
+        return fontStyle;
+    }
+
+    public int getFontSize()
+    {
+        return fontSize;
+    }
+
     //ボタンが押された際の動作
     @Override
     public void actionPerformed(ActionEvent event)
     {
-        SubBace s = new SubBace();
         //フォントネームを決定
         int index = fontNameList.getSelectedIndex();
         if (index == 0) {
-            s.fontName = fontNameModel.getElementAt(0).toString();
+            fontName = fontNameModel.getElementAt(0).toString();
         } else if (index == 1) {
-            s.fontName = fontNameModel.getElementAt(1).toString();
+            fontName = fontNameModel.getElementAt(1).toString();
         } else if (index == 2) {
-            s.fontName = fontNameModel.getElementAt(2).toString();
+            fontName = fontNameModel.getElementAt(2).toString();
         } else if (index == 3) {
-            s.fontName = fontNameModel.getElementAt(3).toString();
+            fontName = fontNameModel.getElementAt(3).toString();
         } else if (index == 4) {
-            s.fontName = fontNameModel.getElementAt(1).toString();
+            fontName = fontNameModel.getElementAt(4).toString();
         }
 
         //フォントスタイルを決定
         index = fontStyleList.getSelectedIndex();
         if (index == 0) {
-            s.fontStyle = 1;
+            fontStyle = 1;
         } else if (index == 1) {
-            s.fontStyle = 2;
-        } else if (index == 3) {
-            s.fontStyle = 0;
+            fontStyle = 2;
+        } else if (index == 2) {
+            fontStyle = 0;
         }
 
         //フォントサイズを決定
         Integer size = (Integer) model.getValue();
-        s.fontSize = size;
+        fontSize = size;
 
-        s.mainFrame();
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 }

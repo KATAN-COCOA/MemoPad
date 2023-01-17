@@ -22,7 +22,6 @@ public class Bace extends JFrame implements ActionListener{
     
     //メニューボタン
     private JMenuItem itemOfNew;
-    private JMenuItem itemOfNewWindow;
     private JMenuItem itemOfSetting;
     private JMenuItem itemOfStore;
     private JMenuItem itemOfStoreWithName;
@@ -35,6 +34,9 @@ public class Bace extends JFrame implements ActionListener{
     
     //テキストエリア
     public static JTextArea textArea; //書き込む部分
+
+    //スクロール
+    private JScrollPane scrollpane;
 
     /*
     * メイン画面を表示
@@ -54,7 +56,7 @@ public class Bace extends JFrame implements ActionListener{
         //初期設定
         fontName = "Monospaced";
         fontStyle = Font.PLAIN;
-        fontSize = 12; //フォントサイズを設定
+        fontSize = 11;
         
         //フレームの中身の設定
         setLayout(new BorderLayout());
@@ -63,7 +65,7 @@ public class Bace extends JFrame implements ActionListener{
         //フレームを有効化
         setVisible(true);
     }
-    
+
     /*
     * メインのパネルを表示
     */
@@ -80,9 +82,6 @@ public class Bace extends JFrame implements ActionListener{
         itemOfNew = new JMenuItem("新規");
         itemOfNew.addActionListener(this);
 
-        itemOfNewWindow = new JMenuItem("新規ウィンドウ");
-        itemOfNewWindow.addActionListener(this);
-
         itemOfSetting = new JMenuItem("設定");
         itemOfSetting.addActionListener(this);
 
@@ -96,7 +95,6 @@ public class Bace extends JFrame implements ActionListener{
         itemOfExit.addActionListener(this);
 
         menu.add(itemOfNew);
-        menu.add(itemOfNewWindow);
         menu.add(itemOfSetting);
         menu.add(itemOfStore);
         menu.add(itemOfStoreWithName);
@@ -104,11 +102,10 @@ public class Bace extends JFrame implements ActionListener{
 
         setJMenuBar(menuBar);
 
-
-        
         textArea = new JTextArea();
         textArea.setFont(new Font(fontName, fontStyle, fontSize));
-        JScrollPane scrollpane = new JScrollPane(textArea);
+        scrollpane = new JScrollPane(textArea);
+        add(scrollpane);
         
         mainP.add(scrollpane, BorderLayout.CENTER);
 
@@ -130,14 +127,18 @@ public class Bace extends JFrame implements ActionListener{
             mainP.removeAll();
             add(mainPanel());
             setVisible(true);
-        }else if(event.getSource() == itemOfNewWindow){
-            SubBace s = new SubBace();
-            s.mainFrame();
         }else if(event.getSource() == itemOfSetting){
-            this.removeAll();
-            setTitle("設定から新しいフレームを作成し、そこで作業を行ってください(プログラムを終了したい場合は右上のバツボタンを押すこと)");
-            setVisible(true);
-            new Setting();
+            mainP.removeAll();
+            Setting s = new Setting();
+            s.mainFrame();
+            fontName = s.getFontName();
+            System.out.println(fontName);
+            fontStyle = s.getFontStyle();
+            System.out.println(fontStyle);
+            fontSize = s.getFontSize();
+            System.out.println(fontSize);
+            mainP.setLayout(new BorderLayout());
+            add(mainPanel());
         }else if(event.getSource() == itemOfStore){
 
         }else if(event.getSource() == itemOfStoreWithName){

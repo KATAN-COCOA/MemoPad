@@ -22,7 +22,6 @@ public class SubBace extends JFrame implements ActionListener{
 
     //メニューボタン
     private JMenuItem itemOfNew;
-    private JMenuItem itemOfNewWindow;
     private JMenuItem itemOfSetting;
     private JMenuItem itemOfStore;
     private JMenuItem itemOfStoreWithName;
@@ -74,9 +73,6 @@ public class SubBace extends JFrame implements ActionListener{
         itemOfNew = new JMenuItem("新規");
         itemOfNew.addActionListener(this);
 
-        itemOfNewWindow = new JMenuItem("新規ウィンドウ");
-        itemOfNewWindow.addActionListener(this);
-
         itemOfSetting = new JMenuItem("設定");
         itemOfSetting.addActionListener(this);
 
@@ -90,7 +86,6 @@ public class SubBace extends JFrame implements ActionListener{
         itemOfExit.addActionListener(this);
 
         menu.add(itemOfNew);
-        menu.add(itemOfNewWindow);
         menu.add(itemOfSetting);
         menu.add(itemOfStore);
         menu.add(itemOfStoreWithName);
@@ -122,11 +117,13 @@ public class SubBace extends JFrame implements ActionListener{
             mainP.removeAll();
             add(mainPanel());
             setVisible(true);
-        }else if(event.getSource() == itemOfNewWindow){
-            SubBace s = new SubBace();
-            s.mainFrame();
         }else if(event.getSource() == itemOfSetting){
-            new Setting();
+            Setting s = new Setting();
+            s.mainFrame();
+            fontName = s.getFontName();
+            fontStyle = s.getFontStyle();
+            fontSize = s.getFontSize();
+            setVisible(true);
         }else if(event.getSource() == itemOfStore){
             
         }else if(event.getSource() == itemOfStoreWithName){
