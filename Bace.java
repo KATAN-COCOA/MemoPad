@@ -15,10 +15,13 @@ import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.event.*;
 
-public class Bace extends JFrame implements ActionListener{
+public class Bace implements ActionListener{
+
+    //フレーム
+    public static JFrame mainF;
 
     //パネル
-    private JPanel mainP;
+    public static JPanel mainP;
     
     //メニューボタン
     private JMenuItem itemOfNew;
@@ -38,16 +41,20 @@ public class Bace extends JFrame implements ActionListener{
     //スクロール
     private JScrollPane scrollpane;
 
+    //テキストエリアの中身
+    private String text;
+
     /*
     * メイン画面を表示
      */
     public void mainFrame()
     {
         //フレーム全体の設定
-        setSize(1000, 500);
-        setLocationRelativeTo(null);
-        setTitle("メモ帳");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        mainF = new JFrame();
+        mainF.setSize(1000, 500);
+        mainF.setLocationRelativeTo(null);
+        mainF.setTitle("メモ帳");
+        mainF.setDefaultCloseOperation(mainF.EXIT_ON_CLOSE);
         
         //メインパネルの設定
         mainP = new JPanel();
@@ -57,20 +64,25 @@ public class Bace extends JFrame implements ActionListener{
         fontName = "Monospaced";
         fontStyle = Font.PLAIN;
         fontSize = 11;
+        text = "";
         
         //フレームの中身の設定
-        setLayout(new BorderLayout());
-        add(mainPanel());
+        mainF.setLayout(new BorderLayout());
+        mainPanel();
+        mainF.add(mainP);
         
         //フレームを有効化
-        setVisible(true);
+        mainF.setVisible(true);
     }
 
     /*
     * メインのパネルを表示
     */
-    public JPanel mainPanel()
+    public void mainPanel()
     {
+        System.out.println(fontName);
+        System.out.println(fontStyle);
+        System.out.println(fontSize);
         //メニューバー
         JMenuBar menuBar = new JMenuBar();
         //メニューの項目を設定
@@ -100,22 +112,31 @@ public class Bace extends JFrame implements ActionListener{
         menu.add(itemOfStoreWithName);
         menu.add(itemOfExit);
 
-        setJMenuBar(menuBar);
+        mainF.setJMenuBar(menuBar);
 
         textArea = new JTextArea();
-        textArea.setFont(new Font(fontName, fontStyle, fontSize));
+        if(text.equals("")){
+            textArea.setFont(new Font(fontName, fontStyle, fontSize));
+        }else{
+            textArea.append(text);
+            textArea.setFont(new Font(fontName, fontStyle, fontSize));
+        }
         scrollpane = new JScrollPane(textArea);
-        add(scrollpane);
+        mainF.add(scrollpane);
         
         mainP.add(scrollpane, BorderLayout.CENTER);
+        System.out.println(textArea);
+    }
 
-        return mainP;
+    public void setText(String tmpText)
+    {
+        text = tmpText;
     }
 
     //テキストを与える
     public String getTextArea()
     {
-        String text = textArea.getText();
+        text = textArea.getText();
         return text;
     }
     
@@ -125,26 +146,18 @@ public class Bace extends JFrame implements ActionListener{
     {
         if(event.getSource() == itemOfNew){
             mainP.removeAll();
-            add(mainPanel());
-            setVisible(true);
+            mainPanel();
+            mainF.add(mainP);
+            mainF.setVisible(true);
         }else if(event.getSource() == itemOfSetting){
-            mainP.removeAll();
             Setting s = new Setting();
             s.mainFrame();
-            fontName = s.getFontName();
-            System.out.println(fontName);
-            fontStyle = s.getFontStyle();
-            System.out.println(fontStyle);
-            fontSize = s.getFontSize();
-            System.out.println(fontSize);
-            mainP.setLayout(new BorderLayout());
-            add(mainPanel());
         }else if(event.getSource() == itemOfStore){
 
         }else if(event.getSource() == itemOfStoreWithName){
             new FileStore();
         }else if(event.getSource() == itemOfExit){
-            dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            mainF.dispatchEvent(new WindowEvent(mainF, WindowEvent.WINDOW_CLOSING));
         }
     }
 }

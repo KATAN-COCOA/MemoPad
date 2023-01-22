@@ -10,7 +10,7 @@ import java.awt.event.*;
 
 public class Setting extends JFrame implements ActionListener{
 
-    private JPanel mainP;
+    private JPanel mainSettingP;
     private JPanel fontNameP;
     private JPanel fontStyleP;
     private JPanel fontSizeP;
@@ -25,10 +25,6 @@ public class Setting extends JFrame implements ActionListener{
     private DefaultListModel fontNameModel;
     private DefaultListModel fontStyleModel;
 
-    public static String fontName = ""; //getValues用
-    public static int fontStyle = 0; //getValues用
-    public static int fontSize = 0; //getValues用
-
 
     /*
     * メイン画面表示
@@ -40,15 +36,15 @@ public class Setting extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
         setTitle("設定");
 
-        mainP = new JPanel();
+        mainSettingP = new JPanel();
         GridLayout layout = new GridLayout(4, 1);
-        mainP.setLayout(layout);
-        mainP.add(fontNamePanel());
-        mainP.add(fontStylePanel());
-        mainP.add(fontSizePanel());
-        mainP.add(buttonPanel());
+        mainSettingP.setLayout(layout);
+        mainSettingP.add(fontNamePanel());
+        mainSettingP.add(fontStylePanel());
+        mainSettingP.add(fontSizePanel());
+        mainSettingP.add(buttonPanel());
 
-        add(mainP);
+        add(mainSettingP);
         setVisible(true);
     }
 
@@ -157,52 +153,44 @@ public class Setting extends JFrame implements ActionListener{
         return buttonP;
     }
 
-    public String getFontName()
-    {
-        return fontName;
-    }
-
-    public int getFontStyle()
-    {
-        return fontStyle;
-    }
-
-    public int getFontSize()
-    {
-        return fontSize;
-    }
-
     //ボタンが押された際の動作
     @Override
     public void actionPerformed(ActionEvent event)
     {
+        Bace b = new Bace();
         //フォントネームを決定
         int index = fontNameList.getSelectedIndex();
         if (index == 0) {
-            fontName = fontNameModel.getElementAt(0).toString();
+            b.fontName = fontNameModel.getElementAt(0).toString();
         } else if (index == 1) {
-            fontName = fontNameModel.getElementAt(1).toString();
+            b.fontName = fontNameModel.getElementAt(1).toString();
         } else if (index == 2) {
-            fontName = fontNameModel.getElementAt(2).toString();
+            b.fontName = fontNameModel.getElementAt(2).toString();
         } else if (index == 3) {
-            fontName = fontNameModel.getElementAt(3).toString();
+            b.fontName = fontNameModel.getElementAt(3).toString();
         } else if (index == 4) {
-            fontName = fontNameModel.getElementAt(4).toString();
+            b.fontName = fontNameModel.getElementAt(4).toString();
         }
 
         //フォントスタイルを決定
         index = fontStyleList.getSelectedIndex();
         if (index == 0) {
-            fontStyle = 1;
+            b.fontStyle = 1;
         } else if (index == 1) {
-            fontStyle = 2;
+            b.fontStyle = 2;
         } else if (index == 2) {
-            fontStyle = 0;
+            b.fontStyle = 0;
         }
 
         //フォントサイズを決定
         Integer size = (Integer) model.getValue();
-        fontSize = size;
+        b.fontSize = size;
+
+        b.mainP.removeAll();
+        b.setText(b.textArea.getText());
+        b.mainPanel();
+        b.mainF.add(b.mainP);
+        b.mainF.setVisible(true);
 
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
