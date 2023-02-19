@@ -39,7 +39,7 @@ public class FileStore implements ActionListener{
     */
     public FileStore()
     {
-        mainFrame = new JFrame("名前を付けて保存");
+        mainFrame = new JFrame("名前を付けて保存(Pathの最後に/をつけること)");
         mainFrame.setSize(700, 200);
         mainFrame.setLocationRelativeTo(null);
         fileStore();
@@ -66,7 +66,9 @@ public class FileStore implements ActionListener{
         filePathEnterP.setLayout(new FlowLayout(FlowLayout.CENTER));
         filePathEnterL = new JLabel("ファイルパス");
         filePathEnterL.setFont(new Font("Monospaced", Font.PLAIN, 15));
-        enterFilePathFi = new JTextField(50);
+        //あらかじめホームディレクトリの場所を入れておく
+        String homeDirPath = System.getProperty("user.home");
+        enterFilePathFi = new JTextField(homeDirPath, 50);
         filePathEnterP.add(filePathEnterL);
         filePathEnterP.add(enterFilePathFi);
         

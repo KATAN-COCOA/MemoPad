@@ -26,7 +26,6 @@ public class Bace implements ActionListener{
     //メニューボタン
     private JMenuItem itemOfNew;
     private JMenuItem itemOfSetting;
-    private JMenuItem itemOfStore;
     private JMenuItem itemOfStoreWithName;
     private JMenuItem itemOfExit;
 
@@ -97,9 +96,6 @@ public class Bace implements ActionListener{
         itemOfSetting = new JMenuItem("設定");
         itemOfSetting.addActionListener(this);
 
-        itemOfStore = new JMenuItem("保存");
-        itemOfStore.addActionListener(this);
-
         itemOfStoreWithName = new JMenuItem("名前を付けて保存");
         itemOfStoreWithName.addActionListener(this);
 
@@ -108,7 +104,6 @@ public class Bace implements ActionListener{
 
         menu.add(itemOfNew);
         menu.add(itemOfSetting);
-        menu.add(itemOfStore);
         menu.add(itemOfStoreWithName);
         menu.add(itemOfExit);
 
@@ -152,8 +147,6 @@ public class Bace implements ActionListener{
         }else if(event.getSource() == itemOfSetting){
             Setting s = new Setting();
             s.mainFrame();
-        }else if(event.getSource() == itemOfStore){
-
         }else if(event.getSource() == itemOfStoreWithName){
             new FileStore();
         }else if(event.getSource() == itemOfExit){
